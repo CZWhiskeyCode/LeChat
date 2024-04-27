@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <style>
+        /* Стили для улучшения внешнего вида чата */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .message-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .message-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Chat Application</h2>
+        <ul class="message-list" id="message-list">
+            <!-- Список сообщений будет отображаться здесь -->
+        </ul>
+        <div>
+            <input type="text" id="userInput" placeholder="Your Name">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- Скрипт для подключения к хабу SignalR и отправки сообщений -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat") // Подключаемся к хабу на сервере
+            .build();
+
+        connection.on("ReceiveMessage", (user, message) => {
+            // Функция для отображения новых сообщений в чате
+            const messageList = document.getElementById("message-list");
+            const listItem = document.createElement("li");
+            listItem.className = "message-item";
+            listItem.innerText = `${user}: ${message}`;
+            messageList.appendChild(listItem);
+        });
+
+        connection.start() // Установка соединения с сервером
+            .then(() => console.log("Connection established"))
+            .catch(console.error);
+
+        function sendMessage() {
+            // Функция для отправки сообщения на сервер
+            const userInput = document.getElementById("userInput").value;
+            const messageInput = document.getElementById("messageInput").value;
+            connection.invoke("SendMessage", userInput, messageInput)
+                .catch(console.error);
+        }
+    </script>
+</body>
+</html>
