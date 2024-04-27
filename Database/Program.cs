@@ -32,6 +32,13 @@ public class Program
             return db.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
         }
     }
+    public static User FindUserByEmail(string email)
+    {
+        using (var db = new ApplicationContextFactory().CreateDbContext())
+        {
+            return db.Users.FirstOrDefault(u => u.Email == email);
+        }
+    }
 }
 public class User
 {
