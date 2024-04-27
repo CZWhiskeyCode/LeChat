@@ -34,7 +34,7 @@ namespace Le_Chat
                 if (user is not null)
                 {
                     MailAddress from = new MailAddress("zemanarthur@gmail.com", "Artur");
-                    MailAddress to = new MailAddress("dimapyatnichenko09@gmail.com");
+                    MailAddress to = new MailAddress(user.Email);
                     MailMessage m = new MailMessage(from, to);
                     m.Subject = "Your Password Recovery";
                     m.Body = $"<h2>Your password: {user.Password}</h2>";
