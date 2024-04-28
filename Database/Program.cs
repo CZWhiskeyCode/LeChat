@@ -95,6 +95,26 @@ public enum Status
     Away,
     DontDisturb
 }
+public class GitHubFileDownloader
+{
+    public static async Task DownloadFile(string url, string outputPath)
+    {
+        using (HttpClient client = new HttpClient())
+        {
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                File.WriteAllText(outputPath, content);
+                Console.WriteLine($"File downloaded successfully to: {outputPath}");
+            }
+            else
+            {
+                Console.WriteLine($"Failed to download file. Status code: {response.StatusCode}");
+            }
+        }
+    }
+}
 public class ApplicationContext : DbContext
 {
     public ApplicationContext(DbContextOptions options) : base(options)
@@ -152,8 +172,12 @@ public class ApplicationContextFactory : IDesignTimeDbContextFactory<Application
     private static IConfigurationRoot config;
     static ApplicationContextFactory()
     {
+        string githubUrl = "https://raw.githubusercontent.com/CZWhiskeyCode/LeChat/master/Database/appsettings.json";
+        string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
+        GitHubFileDownloader.DownloadFile(githubUrl, localFilePath).GetAwaiter().GetResult();
+
         ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.SetBasePath(Directory.GetCurrentDirectory());
+        builder.SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
         builder.AddJsonFile("appsettings.json");
         config = builder.Build();
     }
