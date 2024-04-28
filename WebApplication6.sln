@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication6", "WebAppli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{55CD8C77-B348-43C8-AD0B-21F1472DBAAB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp5", "..\WpfApp5\WpfApp5\WpfApp5.csproj", "{55DD48B9-3739-4D35-B2A8-65F7183AD870}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{55CD8C77-B348-43C8-AD0B-21F1472DBAAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CD8C77-B348-43C8-AD0B-21F1472DBAAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55CD8C77-B348-43C8-AD0B-21F1472DBAAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55DD48B9-3739-4D35-B2A8-65F7183AD870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DD48B9-3739-4D35-B2A8-65F7183AD870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DD48B9-3739-4D35-B2A8-65F7183AD870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DD48B9-3739-4D35-B2A8-65F7183AD870}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
